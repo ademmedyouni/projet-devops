@@ -9,6 +9,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: eventsProject
+      MYSQL_ROOT_HOST: '%'  # <-- allow root from any host
     ports:
       - "3306:3306"
     volumes:
@@ -16,11 +17,12 @@ services:
     networks:
       - eventsproject-network
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$MYSQL_ROOT_PASSWORD || exit 1"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot" ]
       interval: 10s
       timeout: 5s
-      retries: 10
-      start_period: 60s
+      retries: 5
+      start_period: 30s
+
 
 
   # Spring Boot Application
