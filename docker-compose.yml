@@ -16,11 +16,12 @@ services:
     networks:
       - eventsproject-network
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot" ]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$MYSQL_ROOT_PASSWORD || exit 1"]
       interval: 10s
       timeout: 5s
-      retries: 5
-      start_period: 30s
+      retries: 10
+      start_period: 60s
+
 
   # Spring Boot Application
   app:
