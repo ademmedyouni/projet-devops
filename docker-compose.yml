@@ -82,23 +82,15 @@ services:
       - eventsproject-network
 
   # cAdvisor for container metrics
-  cadvisor:
+    cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
-    container_name: eventsproject-cadvisor
     restart: unless-stopped
     ports:
       - "8083:8080"
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro
     privileged: true
-    devices:
-      - /dev/kmsg
     networks:
       - eventsproject-network
+
 
   # Node Exporter for host metrics
   node-exporter:
