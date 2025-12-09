@@ -23,8 +23,6 @@ services:
       retries: 5
       start_period: 30s
 
-
-
   # Spring Boot Application
   app:
     image: ${DOCKER_IMAGE:-ademm123/eventsproject}:${DOCKER_TAG:-latest}
@@ -82,15 +80,15 @@ services:
       - eventsproject-network
 
   # cAdvisor for container metrics
-    cadvisor:
+  cadvisor:  # <-- CORRECTION : aligné avec les autres services
     image: gcr.io/cadvisor/cadvisor:latest
+    container_name: eventsproject-cadvisor  # <-- J'ai ajouté un nom de conteneur
     restart: unless-stopped
     ports:
       - "8083:8080"
     privileged: true
     networks:
       - eventsproject-network
-
 
   # Node Exporter for host metrics
   node-exporter:
